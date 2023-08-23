@@ -1,0 +1,63 @@
+// 边距
+$sizes: 0, 6, 10, 20, 30;
+
+@each $animal in $sizes {
+
+	// 外边距
+	.mar-top-#{$animal} {
+		margin-top: #{$animal}px;
+	}
+
+	.mar-left-#{$animal} {
+		margin-left: #{$animal}px;
+	}
+
+	.mar-right-#{$animal} {
+		margin-right: #{$animal}px;
+	}
+
+	.mar-bot-#{$animal} {
+		margin-bottom: #{$animal}px;
+	}
+
+	.mar-tb-#{$animal} {
+		margin: #{$animal}px 0;
+	}
+
+	.mar-lr-#{$animal} {
+		margin: 0 #{$animal}px;
+	}
+
+	.mar-#{$animal} {
+		margin: #{$animal}px;
+	}
+
+	// 内边距
+	.pad-top-#{$animal} {
+		padding-top: #{$animal}px;
+	}
+
+	.pad-left-#{$animal} {
+		padding-left: #{$animal}px;
+	}
+
+	.pad-right-#{$animal} {
+		padding-right: #{$animal}px;
+	}
+
+	.pad-bot-#{$animal} {
+		padding-bottom: #{$animal}px;
+	}
+
+	.pad-tb-#{$animal} {
+		padding: #{$animal}px 0;
+	}
+
+	.pad-lr-#{$animal} {
+		padding: 0 #{$animal}px;
+	}
+
+	.pad-#{$animal} {
+		padding: #{$animal}px;
+	}
+}

@@ -1,0 +1,74 @@
+@import './color.scss'; //颜色相关
+@import './font.scss'; //整体相关
+@import './flex.scss'; //flex相关
+@import './border.scss'; //边框相关
+@import './modules.scss'; //各引入模块相关
+@import './spacing.scss'; //间边相关  内外边距
+@import './length.scss'; //长度相关  宽高
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+button,
+a,
+i,
+input,
+body {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border: 0;
+	-webkit-tap-highlight-color: transparent;
+	text-decoration: none;
+	color: inherit;
+	box-sizing: border-box;
+}
+
+h1:focus,
+h2:focus,
+h3:focus,
+h4:focus,
+h5:focus,
+h6:focus,
+p:focus,
+ul:focus,
+li:focus,
+button:focus,
+a:focus,
+i:focus,
+input:focus,
+body:focus {
+	outline: 0;
+}
+
+body {
+	font-family: "Barlow", sans-serif;
+	color: #606266;
+}
+
+/** 全局滚动条样式 */
+::-webkit-scrollbar {
+	width: 6px !important;
+	height: 6px !important;
+	border-radius: 3px !important;
+	background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 3px !important;
+	background: #e4e4e4 !important;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 3px !important;
+}
+
+::-webkit-scrollbar-track {
+	background-color: transparent !important;
+}

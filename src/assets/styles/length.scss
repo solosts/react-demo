@@ -1,0 +1,56 @@
+// 宽高
+.vwh-full {
+	width: 100vw;
+	height: 100vh;
+}
+
+.wh-full {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.w-full {
+	width: 100% !important;
+}
+
+.h-full {
+	height: 100% !important;
+}
+
+$distance: 36, 60, 100, 200, 300, 400, 500, 600;
+
+// 宽 width
+@each $animal in $distance {
+	.w#{$animal} {
+		width: #{$animal}px;
+	}
+}
+
+// 高 height
+@each $animal in $distance {
+	.h#{$animal} {
+		height: #{$animal}px;
+	}
+}
+
+
+$overflow: hidden, auto, scroll;
+
+// overflow
+@each $animal in $overflow {
+	.over-#{$animal} {
+		overflow: #{$animal};
+	}
+
+	.over-#{$animal}-i {
+		overflow: #{$animal} !important;
+	}
+
+	.over-x-#{$animal} {
+		overflow-x: #{$animal};
+	}
+
+	.over-y-#{$animal} {
+		overflow-y: #{$animal};
+	}
+}

@@ -1,0 +1,52 @@
+.flex {
+	display: flex;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-row-start {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.flex-row-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+.flex-row-center {
+	display: flex;
+	justify-content: center;
+}
+
+.flex-row-end {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.flex-col-center {
+	display: flex;
+	align-items: center;
+}
+
+.flex-col-start {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.flex-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+// gap
+@each $animal in 10, 20, 30 {
+	.gap#{$animal} {
+		gap: #{$animal}px;
+	}
+}

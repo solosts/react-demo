@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // 路由懒加载
-const Login = React.lazy(() => import('../pages/login'))
+const Login = React.lazy(() => import('../pages/login/login'))
 const Home = React.lazy(() => import('../pages/home'))
 const NotFound = React.lazy(() => import('../pages/notFound'))
 

@@ -1,0 +1,11 @@
+.el-dialog {
+	max-height: 100vh;
+	margin: 80px auto !important;
+
+	.el-dialog__body {
+		max-height: calc(90vh - 160px - 54px - 62px);
+		height: auto;
+		padding: 0 20px;
+		overflow-y: auto;
+	}
+}
