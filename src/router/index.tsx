@@ -11,7 +11,7 @@ export default function Router() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Suspense><Home /></Suspense>}></Route>
+          <Route path='/' element={<Suspense><Login /></Suspense>}></Route>
           <Route path="/Login" element={<Login />} />
           <Route path="/Home" element={<Home />} />
           {/* 定义404路由*/}
