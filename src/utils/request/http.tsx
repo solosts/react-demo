@@ -102,26 +102,25 @@ export const download = async (url: string, params: any, filename: string) => {
 			responseType: "blob",
 		});
 	}
-	return await req
-		.then(async (resp: any) => {
-			const isLogin = await blobValidate(resp);
-			if (isLogin) {
-				const blob = new Blob([resp]);
-				// saveAs(blob, filename, {
-				// 	type: "application/octet-stream;charset=utf-8"
-				// });
-				saveAs(blob, filename);
-				//var blob2 = new Blob([resp], {type: "text/plain;charset=utf-8"});
-				//saveAs(blob, resp.msg + ".xlsx");
-				console.log("%s ====>>>导出成功", filename);
-			} else {
-				const resText = resp.text();
-				const rspObj = JSON.parse(resText);
+	return await req.then(async (resp: any) => {
+		const isLogin = await blobValidate(resp);
+		if (isLogin) {
+			const blob = new Blob([resp]);
+			// saveAs(blob, filename, {
+			// 	type: "application/octet-stream;charset=utf-8"
+			// });
+			saveAs(blob, filename);
+			//var blob2 = new Blob([resp], {type: "text/plain;charset=utf-8"});
+			//saveAs(blob, resp.msg + ".xlsx");
+			console.log("%s ====>>>导出成功", filename);
+		} else {
+			const resText = resp.text();
+			const rspObj = JSON.parse(resText);
 
-				const errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode['default']
-				message.error(errMsg);
-			}
-		})
+			const errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode['default']
+			message.error(errMsg);
+		}
+	})
 		.catch((r) => {
 			console.error(r);
 			message.error("下载文件出现错误，请联系管理员！");

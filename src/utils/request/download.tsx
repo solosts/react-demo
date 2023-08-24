@@ -1,12 +1,11 @@
 import axios from "axios";
-import { ElMessage } from "element-plus";
+import { message } from 'antd';
 import { saveAs } from "file-saver";
-import useUserStore from '@/store/user';
-import errorCode from "@/utils/errorCode";
+import { getCache } from '../../hooks/useCache';
+import errorCode from "../errorCode";
 import { blobValidate } from "../common";
 
 const baseURL = import.meta.env.VITE_APP_BASE_API;
-const { token } = useUserStore()
 export default {
   name(name: string, isDelete = true) {
     // prettier-ignore
@@ -15,7 +14,7 @@ export default {
       method: "get",
       url: url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + token }
+      headers: { Authorization: "Bearer " + getCache('token') }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -33,7 +32,7 @@ export default {
       method: "get",
       url: url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + token }
+      headers: { Authorization: "Bearer " + getCache('token') }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -49,7 +48,7 @@ export default {
       method: "get",
       url: baseURL + url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + token }
+      headers: { Authorization: "Bearer " + getCache('token') }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -66,8 +65,8 @@ export default {
   async printErrMsg(data: { text: () => any; }) {
     const resText = await data.text();
     const rspObj = JSON.parse(resText);
-    // prettier-ignore
+
     const errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode['default'];
-    ElMessage.error(errMsg);
+    message.error(errMsg);
   },
 };
