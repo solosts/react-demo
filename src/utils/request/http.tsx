@@ -1,10 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { message, Modal } from 'antd';
-import { getCache, clearCache } from '../../hooks/useCache';
+import { useSelector, useDispatch } from 'react-redux'
+import { clearLogin } from "../../store/userSlice";
 import { requestMethod } from '../tsType';
 import { saveAs } from 'file-saver'
 import errorCode from '../errorCode';
 import { blobValidate, tansParams } from '../common';
+
+const dispatch = useDispatch()
 
 // 插件实例
 const serverAxios: AxiosInstance = axios.create({
@@ -14,8 +17,9 @@ const serverAxios: AxiosInstance = axios.create({
 // 请求拦截
 serverAxios.interceptors.request.use(
 	config => {
+		const token = useSelector((state: any) => state.token.value)
 		// 设置token
-		config.headers.Authorization = getCache('token');
+		config.headers.Authorization = token;
 		return config;
 	},
 	error => {
@@ -70,7 +74,7 @@ export const http = (url: string, params: any, method: requestMethod) => {
 						okText: '确定',
 						icon: false,
 						onOk: () => {
-							clearCache();
+							dispatch(clearLogin())
 						}
 					})
 				} else {

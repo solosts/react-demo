@@ -1,20 +1,20 @@
 import axios from "axios";
 import { message } from 'antd';
 import { saveAs } from "file-saver";
-import { getCache } from '../../hooks/useCache';
+import { useSelector } from 'react-redux'
 import errorCode from "../errorCode";
 import { blobValidate } from "../common";
 
 const baseURL = import.meta.env.VITE_APP_BASE_API;
+const token = useSelector((state: any) => state.token.value)
 export default {
   name(name: string, isDelete = true) {
-    // prettier-ignore
     var url = baseURL + "/common/download?fileName=" + encodeURI(name) + "&delete=" + isDelete
     axios({
       method: "get",
       url: url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + getCache('token') }
+      headers: { Authorization: "Bearer " + token }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -32,7 +32,7 @@ export default {
       method: "get",
       url: url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + getCache('token') }
+      headers: { Authorization: "Bearer " + token }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -48,7 +48,7 @@ export default {
       method: "get",
       url: baseURL + url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + getCache('token') }
+      headers: { Authorization: "Bearer " + token }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
