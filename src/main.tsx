@@ -4,9 +4,8 @@ import Router from './router'
 // 国际化
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN';
-
-// redux状态管理
-import store from './store/index'
+// 全局状态
+import store from './store'
 import { Provider } from 'react-redux'
 
 // 公共样式

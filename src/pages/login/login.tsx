@@ -3,12 +3,16 @@ import { useEffect } from 'react';
 import { useImmer } from 'use-immer'
 import { httpRequest } from '../../utils/common';
 import { getCache, setCache } from '../../hooks/useCache';
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
+import { decrement, increment } from '../../store/userSlice'
 import UseThree from './UseThree';
 import "./index.scss";
 import human from '../../assets/images/login/login_human.png';
 import line from '../../assets/images/login/login_horizontal_line.png';
 
 export default function Login() {
+  const count = useAppSelector(state => state.user.value)
+  const dispatch = useAppDispatch()
   // 表单数据
   const [formField] = Form.useForm();
   console.log(getCache('whetherAutoLogin'));
@@ -81,6 +85,8 @@ export default function Login() {
                 </Form.Item>
                 <Button htmlType="submit" className="login-btn" size="large" type="primary" >登录</Button>
               </Form >
+              <Button onClick={() => dispatch(increment())}>{count}</Button>
+              <Button onClick={() => dispatch(decrement())}>{count}</Button>
             </div >
           </div >
         </div >
