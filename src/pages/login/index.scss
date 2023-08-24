@@ -109,16 +109,40 @@
   .ant-form-item-control-input {
     outline-color: #2662b8;
 
+    .ant-form-item-control-input-content {
+      border: none;
+      border-radius: 6px;
+    }
+
+    .ant-input-affix-wrapper {
+      padding-top: 0;
+      padding-bottom: 0;
+      background: rgba($color: #fff, $alpha: 0);
+      border: none;
+      border-inline-end-width: 0;
+      box-shadow: 0 0 0 1px #2662b8;
+      outline-color: #2662b8;
+
+      .ant-input {
+        box-shadow: none;
+        outline-color: invert;
+      }
+
+      .ant-input-password-icon {
+        color: #fff;
+      }
+    }
+
     .ant-input {
       box-shadow: 0 0 0 1px #2662b8;
+      outline-color: #2662b8;
       background: rgba($color: #fff, $alpha: 0);
       color: #fff;
-      outline-color: #2662b8;
       border: none;
       height: 40px;
 
       &::placeholder {
-        color: #9ca1a9;
+        color: #aeb4bd;
       }
 
       // 解决浏览器自动回填背景问题
