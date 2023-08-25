@@ -1,14 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './index'
+import { routerType } from '../utils/tsType';
 
 // 为 slice state 定义一个类型
-interface CounterState {
-  value: number
+interface userState {
+  token: string;
+  menuList: routerType[];
+  permissions: string[];
+  roles: string[];
+  user: any;
 }
 
 // 使用该类型定义初始 state
-const initialState: CounterState = {
-  value: 0
+const initialState: userState = {
+  token: '',
+  menuList: [],
+  permissions: [],
+  roles: [],
+  user: {}
 }
 
 export const userSlice = createSlice({
@@ -16,21 +24,28 @@ export const userSlice = createSlice({
   // `createSlice` 将从 `initialState` 参数推断 state 类型
   initialState,
   reducers: {
-    increment: state => {
-      state.value += 1
+    // 设置token
+    setToken(state, action: PayloadAction<string>) {
+      state.token = action.payload
     },
-    decrement: state => {
-      state.value -= 1
+    // 获取用户信息
+    getUserInfo(state) {
+
     },
-    // 使用 PayloadAction 类型声明 `action.payload` 的内容
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
-    }
+    // 获取菜单、路由
+    getMenu(state) {
+
+    },
+    clearLogin(state) {
+      state.token = ''
+      state.user = {}
+      state.menuList = []
+      state.permissions = []
+      state.roles = []
+    },
   }
 })
 
-export const { increment, decrement, incrementByAmount } = userSlice.actions
-// 选择器等其他代码可以使用导入的 `RootState` 类型
-export const selectCount = (state: RootState) => state.user.value
+export const { setToken, getUserInfo, getMenu, clearLogin } = userSlice.actions
 
 export default userSlice.reducer

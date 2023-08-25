@@ -1,11 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { message, Modal } from 'antd';
-import { getCache, clearCache } from '../../hooks/useCache';
+import store from '../../store/index';
+import { clearLogin } from '../../store/userSlice';
 import { requestMethod } from '../tsType';
 import { saveAs } from 'file-saver'
 import errorCode from '../errorCode';
 import { blobValidate, tansParams } from '../common';
 
+const storeState = store.getState()
 // 插件实例
 const serverAxios: AxiosInstance = axios.create({
 	timeout: 10000
@@ -15,7 +17,7 @@ const serverAxios: AxiosInstance = axios.create({
 serverAxios.interceptors.request.use(
 	config => {
 		// 设置token
-		config.headers.Authorization = getCache('token');
+		config.headers.Authorization = storeState.user.token;
 		return config;
 	},
 	error => {
@@ -70,7 +72,7 @@ export const http = (url: string, params: any, method: requestMethod) => {
 						okText: '确定',
 						icon: false,
 						onOk: () => {
-							clearCache();
+							store.dispatch(clearLogin())
 						}
 					})
 				} else {

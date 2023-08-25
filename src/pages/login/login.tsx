@@ -3,21 +3,19 @@ import { useEffect } from 'react';
 import { useImmer } from 'use-immer'
 import { httpRequest } from '../../utils/common';
 import { getCache, setCache } from '../../hooks/useCache';
-import { useAppSelector, useAppDispatch } from '../../store/hooks'
-import { decrement, increment } from '../../store/userSlice'
+import { useAppDispatch } from '../../store/hooks'
+import { setToken } from '../../store/userSlice'
 import UseThree from './UseThree';
 import "./index.scss";
 import human from '../../assets/images/login/login_human.png';
 import line from '../../assets/images/login/login_horizontal_line.png';
 
 export default function Login() {
-  const count = useAppSelector(state => state.user.value)
   const dispatch = useAppDispatch()
   // 表单数据
   const [formField] = Form.useForm();
-  console.log(getCache('whetherAutoLogin'));
 
-  formField.setFieldsValue({ user: 'admin', pass: 'admin123', whetherAutoLogin: getCache('whetherAutoLogin') || false })
+  formField.setFieldsValue({ username: 'admin', password: 'admin123', whetherAutoLogin: getCache('whetherAutoLogin') || false })
 
   const { initThree } = UseThree();
   // 设置背景，获取验证码
@@ -48,9 +46,12 @@ export default function Login() {
   };
 
   // 提交表单  登录
-  const submitForm = (val: any) => {
+  const submitForm = (formData: any) => {
     console.log('提交表单');
-    console.log(val);
+    httpRequest('POST', '/login', { ...formData, uuid: state.uuid }).then(res => {
+      // 储存token
+      dispatch(setToken(res.token))
+    })
   };
 
   return (
@@ -66,10 +67,10 @@ export default function Login() {
             </div>
             <div className="login-plane-form">
               <Form form={formField} onFinish={submitForm}>
-                <Form.Item name="user" rules={[{ required: true, message: '请输入用户名/账号' }]}>
+                <Form.Item name="username" rules={[{ required: true, message: '请输入用户名/账号' }]}>
                   <Input placeholder="用户名/账号"></Input>
                 </Form.Item>
-                <Form.Item name="pass" rules={[{ required: true, message: '请输入用密码' }]}>
+                <Form.Item name="password" rules={[{ required: true, message: '请输入用密码' }]}>
                   <Input.Password placeholder="密码" />
                 </Form.Item>
                 <div className="login-code-container">
@@ -77,7 +78,7 @@ export default function Login() {
                     <Input placeholder="验证码" />
                   </Form.Item>
                   <div className="login-code">
-                    <img src={state.codeSrc} />
+                    <img src={state.codeSrc} onClick={getValidateCodeHandle} />
                   </div>
                 </div>
                 <Form.Item name="whetherAutoLogin" valuePropName="checked">
@@ -85,8 +86,6 @@ export default function Login() {
                 </Form.Item>
                 <Button htmlType="submit" className="login-btn" size="large" type="primary" >登录</Button>
               </Form >
-              <Button onClick={() => dispatch(increment())}>{count}</Button>
-              <Button onClick={() => dispatch(decrement())}>{count}</Button>
             </div >
           </div >
         </div >

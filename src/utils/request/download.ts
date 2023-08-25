@@ -1,10 +1,11 @@
 import axios from "axios";
 import { message } from 'antd';
 import { saveAs } from "file-saver";
-import { getCache } from '../../hooks/useCache';
+import store from '../../store/index';
 import errorCode from "../errorCode";
 import { blobValidate } from "../common";
 
+const storeState = store.getState()
 const baseURL = import.meta.env.VITE_APP_BASE_API;
 export default {
   name(name: string, isDelete = true) {
@@ -14,7 +15,7 @@ export default {
       method: "get",
       url: url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + getCache('token') }
+      headers: { Authorization: "Bearer " + storeState.user.token }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -32,7 +33,7 @@ export default {
       method: "get",
       url: url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + getCache('token') }
+      headers: { Authorization: "Bearer " + storeState.user.token }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
@@ -48,7 +49,7 @@ export default {
       method: "get",
       url: baseURL + url,
       responseType: "blob",
-      headers: { Authorization: "Bearer " + getCache('token') }
+      headers: { Authorization: "Bearer " + storeState.user.token }
     }).then(async res => {
       const isLogin = await blobValidate(res.data);
       if (isLogin) {
