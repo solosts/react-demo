@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { routerType } from '../utils/tsType';
+import { httpRequest } from '../utils/common';
+import { message } from 'antd';
 
 // 为 slice state 定义一个类型
 interface userState {
@@ -30,11 +32,27 @@ export const userSlice = createSlice({
     },
     // 获取用户信息
     getUserInfo(state) {
-
+      httpRequest('GET', '/getInfo', {}).then(({ code, permissions, roles, user, msg }) => {
+        if (code === 200) {
+          // 储存用户信息  权限  角色
+          state.permissions = permissions;
+          state.roles = roles;
+          state.user = user;
+        } else {
+          message.error(msg);
+        }
+      });
     },
     // 获取菜单、路由
     getMenu(state) {
-
+      httpRequest('GET', '/getRouters', {}).then(({ code, data, msg }) => {
+        if (code === 200) {
+          // 储存菜单
+          state.menuList = data;
+        } else {
+          message.error(msg);
+        }
+      });
     },
     clearLogin(state) {
       state.token = ''
