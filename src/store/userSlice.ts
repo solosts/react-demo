@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { routerType } from '../utils/tsType';
 import { httpRequest } from '../utils/common';
 import { message } from 'antd';
+import { getCache, setCache } from '../hooks/useCache';
 
 // 为 slice state 定义一个类型
 interface userState {
@@ -14,7 +15,7 @@ interface userState {
 
 // 使用该类型定义初始 state
 const initialState: userState = {
-  token: '',
+  token: getCache('token') || '',
   menuList: [],
   permissions: [],
   roles: [],
@@ -29,6 +30,7 @@ export const userSlice = createSlice({
     // 设置token
     setToken(state, action: PayloadAction<string>) {
       state.token = action.payload
+      setCache('token', action.payload)
     },
     // 获取用户信息
     getUserInfo(state) {
@@ -38,6 +40,7 @@ export const userSlice = createSlice({
           state.permissions = permissions;
           state.roles = roles;
           state.user = user;
+          setCache('user', { permissions, roles, user })
         } else {
           message.error(msg);
         }

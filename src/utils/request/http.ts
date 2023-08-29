@@ -7,7 +7,6 @@ import { saveAs } from 'file-saver'
 import errorCode from '../errorCode';
 import { blobValidate, tansParams } from '../common';
 
-const storeState = store.getState()
 // 插件实例
 const serverAxios: AxiosInstance = axios.create({
 	timeout: 10000
@@ -16,6 +15,7 @@ const serverAxios: AxiosInstance = axios.create({
 // 请求拦截
 serverAxios.interceptors.request.use(
 	config => {
+		const storeState = store.getState()
 		// 设置token
 		config.headers.Authorization = storeState.user.token;
 		return config;

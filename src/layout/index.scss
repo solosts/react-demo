@@ -1,0 +1,21 @@
+.layoutBox {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+
+  .siderBox {
+    background-color: #000c17;
+    box-shadow: 2px 0 6px rgba(#000c17, 0.35);
+  }
+
+  .headerBox {
+    padding: 0 20px;
+    background-color: #fff;
+    box-shadow: rgba(#000c17, 0.08) 0px 1px 4px;
+  }
+
+  .contentBox {
+    background-color: #fff;
+  }
+}

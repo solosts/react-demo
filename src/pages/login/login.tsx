@@ -33,6 +33,7 @@ export default function Login() {
     codeSrc: '',
     uuid: ''
   });
+
   // 获取验证码
   const getValidateCodeHandle = async () => {
     // 请求获取验证码 并设置验证码的图片以及验证码token
