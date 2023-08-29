@@ -1,10 +1,11 @@
-import { Form, Button, Input, Checkbox } from 'antd';
+import { Form, Button, Input, Checkbox, message } from 'antd';
 import { useEffect } from 'react';
 import { useImmer } from 'use-immer'
 import { httpRequest } from '../../utils/common';
 import { getCache, setCache } from '../../hooks/useCache';
 import { useAppDispatch } from '../../store/hooks'
 import { setToken } from '../../store/userSlice'
+import { Navigate } from "react-router-dom";
 import UseThree from './UseThree';
 import "./index.scss";
 import human from '../../assets/images/login/login_human.png';
@@ -50,8 +51,16 @@ export default function Login() {
   const submitForm = (formData: any) => {
     console.log('提交表单');
     httpRequest('POST', '/login', { ...formData, uuid: state.uuid }).then(res => {
-      // 储存token
-      dispatch(setToken(res.token))
+      if (res.code == 200) {
+        // 储存token
+        dispatch(setToken(res.token))
+        // 页面跳转
+
+        return (<Navigate to="/index" />)
+      } else {
+        message.error(res.msg)
+        getValidateCodeHandle();
+      }
     })
   };
 
